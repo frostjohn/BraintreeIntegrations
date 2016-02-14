@@ -1,6 +1,6 @@
-# V.Zero Ruby demo using Sinatra 
+# Braintree Integrations - Ruby demo using Sinatra 
 
-This is a Braintree Dropin JS Client Library in Sinatra.
+This is Braintree Dropin, Hosted Fields and Paypal in Sinatra.
 ## Technology
 
 This demo uses
