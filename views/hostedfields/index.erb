@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css'>
+  </head>
+  <body>
+    <div id="container">
+      <form action="/hostedfields/process" id="my-sample-form" method= "post" class="form-horizontal">
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <div id="paypal-container"></div>
+          </div> 
+        </div>
+
+        <div class="form-group">
+          <label for="card-number" class="col-sm-2 control-label">Card Number</label>
+          <div class="col-sm-10">      
+            <div id="card-number" class="form-control"></div>
+          </div> 
+        </div>
+
+        <div class="form-group">
+          <label for="cvv" class="col-sm-2 control-label">CVV</label>
+          <div class="col-sm-10">
+            <div id="cvv" class="form-control"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="expiration-date" class="col-sm-2 control-label">Expiration Date</label>
+          <div class="col-sm-10">
+            <div id="expiration-date" class="form-control"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="Submit Payment" class="btn btn-primary btn-lg">
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+    <script>
+      braintree.setup("<%= @client_token %>", "custom", {
+        id: "my-sample-form",
+        hostedFields: {
+          number: {
+            selector: "#card-number"
+          },
+          cvv: {
+            selector: "#cvv"
+          },
+          expirationDate: {
+            selector: "#expiration-date"
+          }
+        },
+        paypal: {
+          container: "paypal-container",
+          singleUse: true, // Required
+          amount: 100.00, // Required
+          currency: 'USD', // Required
+          locale: 'en_us',
+          enableShippingAddress: 'true',
+          shippingAddressOverride: {
+            recipientName: 'John Frost',
+            streetAddress: '123 Main St.',
+            extendedAddress: 'Unit 1',
+            locality: 'Chicago',
+            countryCodeAlpha2: 'US',
+            postalCode: '60652',
+            region: 'IL',
+            phone: '123.456.7890',
+            editable: false
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

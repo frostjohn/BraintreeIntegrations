@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Braintree Dropin Payments</title>
+		<title>Braintree</title>
 		<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 		<link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css'>
 	</head>
 	<body>
 		<div class='container'>
-			<form action='/process' method='post'>
-				<h2>Payment form</h2>
-
-				<div id="checkout">
-				</div>
-
-				<input type='submit' value='Submit Payment' class='btn btn-primary btn-lg'>
-			</form>
+			<h1>Integrations</h1>
+			<p>Braintree provides payment processing options<p>
+			<a href = "/PayPal"><h2>PayPal</h2></a>
+			<p>words here<p>
+			<a href = "/hostedfields"><h2>HostedFields</h2></a>
+			<p>Hosted Fields are small, transparent iframes that replace the sensitive credit card inputs in your checkout flow - helping you meet the latest data security requirements while ensuring your customization doesn't suffer.<p>
+			<a href = "/dropin"><h2>Drop-in UI</h2></a>
+			<p>Braintree v.zero sdk offers a complete, readymade payment UI for easy integration into your app or website. The UI includes a card entry form and – if enabled – a PayPal button. When a user completes the UI, your client code obtains a payment method nonce for use on your server.<p>
 		</div>
-		<script charset="utf-8">
-			braintree.setup("<%= @client_token %>", 'dropin', {
-				container: 'checkout'
-			}); 
-		</script>
 	</body>
 </html>

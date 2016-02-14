@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Braintree Dropin Payments</title>
+		<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+		<link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css'>
+	</head>
+	<body>
+		<div class='container'>
+			<form action='/dropin/process' method='post'>
+				<h2>Payment form</h2>
+
+				<div id="checkout">
+				</div>
+
+				<input type='submit' value='Submit Payment' class='btn btn-primary btn-lg'>
+			</form>
+		</div>
+		<script charset="utf-8">
+			braintree.setup("<%= @client_token %>", 'dropin', {
+				container: 'checkout'
+			}); 
+		</script>
+	</body>
+</html>

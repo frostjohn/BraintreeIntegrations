@@ -5,7 +5,7 @@ This is a Braintree Dropin JS Client Library in Sinatra.
 
 This demo uses
 
-* Ruby 1.9.3 or higher
+* Ruby 2.0.0 or higher
 * The [Sinatra](http://www.sinatrarb.com/) web framework
 
 ## Demo
