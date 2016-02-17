@@ -1,0 +1,36 @@
+var checkout;
+
+braintree.setup("CLIENT_TOKEN_FROM_SERVER", "custom", {
+  onReady: function (integration) {
+    checkout = integration;
+  },
+  onPaymentMethodReceived: function (payload) {
+    // retrieve nonce from payload.nonce
+  },
+  paypal: {
+    singleUse: true,
+    amount: 10.00,
+    currency: 'USD',
+    locale: 'en_us',
+    enableShippingAddress: true,
+    shippingAddressOverride: {
+      recipientName: 'John Frost',
+      streetAddress: '123 Main St.',
+      extendedAddress: 'Unit 1',
+      locality: 'Chicago',
+      countryCodeAlpha2: 'US',
+      postalCode: '60652',
+      region: 'IL',
+      phone: '123.456.7890',
+      editable: false
+      headless: true
+    }
+  },
+});
+
+// Add a click event listener to your own PayPal button
+// Note: cross-browser compatibility for click handlers and events are up to you
+document.querySelector('#my-button-element').addEventListener('click', function (event) {
+  event.preventDefault();
+  checkout.paypal.initAuthFlow();
+}, false);

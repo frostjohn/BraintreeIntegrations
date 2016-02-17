@@ -45,7 +45,7 @@ namespace "/hostedfields" do
 
   post "/process" do
     result = Braintree::Transaction.sale(
-      amount: "100",
+      amount: "150",
       payment_method_nonce: params[:payment_method_nonce]
     )
 

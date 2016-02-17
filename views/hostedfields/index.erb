@@ -2,82 +2,84 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Checkout</title>
+    <div class="container"> 
+      <h2>Payment Form</h2>
     <link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css'>
   </head>
   <body>
-    <div id="container">
-      <form action="/hostedfields/process" id="my-sample-form" method= "post" class="form-horizontal">
+    <div id="paypal">
+      <form action="/hostedfields/process" id="credit-card-info" method= "post" class="form-horizontal">
         <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
+          <div class="col-sm-offset-2 col-sm-3">
             <div id="paypal-container"></div>
           </div> 
         </div>
 
         <div class="form-group">
           <label for="card-number" class="col-sm-2 control-label">Card Number</label>
-          <div class="col-sm-10">      
+          <div class="col-sm-3">      
             <div id="card-number" class="form-control"></div>
           </div> 
         </div>
 
         <div class="form-group">
           <label for="cvv" class="col-sm-2 control-label">CVV</label>
-          <div class="col-sm-10">
+          <div class="col-sm-3">
             <div id="cvv" class="form-control"></div>
           </div>
         </div>
 
         <div class="form-group">
           <label for="expiration-date" class="col-sm-2 control-label">Expiration Date</label>
-          <div class="col-sm-10">
+          <div class="col-sm-3">
             <div id="expiration-date" class="form-control"></div>
           </div>
         </div>
 
         <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
+          <div class="col-sm-offset-2 col-sm-2">
             <input type="submit" value="Submit Payment" class="btn btn-primary btn-lg">
           </div>
         </div>
       </form>
     </div>
-
-
     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
     <script>
       braintree.setup("<%= @client_token %>", "custom", {
-        id: "my-sample-form",
+        id: "credit-card-info",
         hostedFields: {
+          styles: {
+            'input': {
+              'font-family': 'sans-serif',
+              'font-size': '16pt',
+              'color': 'black'
+            },
+            'input:focus': {
+              'outline': 'none'
+            },
+            'input.invalid': {
+              'color': 'tomato'
+            },
+            'input.valid': {
+              'color': 'limegreen'
+            }
+          },
           number: {
-            selector: "#card-number"
+            selector: "#card-number",
+            placeholder: '4111 1111 1111 1111'
           },
           cvv: {
-            selector: "#cvv"
+            selector: "#cvv",
+            placeholder: '123'
           },
           expirationDate: {
-            selector: "#expiration-date"
+            selector: "#expiration-date",
+            placeholder: '11/2020'
           }
-        },
+        },  
         paypal: {
           container: "paypal-container",
-          singleUse: true, // Required
-          amount: 100.00, // Required
-          currency: 'USD', // Required
-          locale: 'en_us',
-          enableShippingAddress: 'true',
-          shippingAddressOverride: {
-            recipientName: 'John Frost',
-            streetAddress: '123 Main St.',
-            extendedAddress: 'Unit 1',
-            locality: 'Chicago',
-            countryCodeAlpha2: 'US',
-            postalCode: '60652',
-            region: 'IL',
-            phone: '123.456.7890',
-            editable: false
-          }
-        },
+        }
       });
     </script>
   </body>
