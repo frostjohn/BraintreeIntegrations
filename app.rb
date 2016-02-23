@@ -58,3 +58,24 @@ namespace "/hostedfields" do
   end
 end
 
+namespace "/headlesspaypal" do
+  get do
+    @client_token = Braintree::ClientToken.generate
+    erb :"headlesspaypal/index"
+  end
+
+  post "/process" do
+    result = Braintree::Transaction.sale(
+      amount: "200",
+      payment_method_nonce: params[:payment_method_nonce]
+    )
+
+    if result.success?
+      @transaction = result.transaction
+      erb :"headlesspaypal/process"
+    else
+      "Payment Failed"
+    end
+  end
+end
+
