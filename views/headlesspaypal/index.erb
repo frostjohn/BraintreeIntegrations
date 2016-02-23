@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+  </head>
+  <body>
+    <form id="credit-card-info" action="/headlesspaypal/process" method="post">
+      <input type="hidden" id="payment_method_nonce" name="payment_method_nonce" />
+      <input type="submit" id="submit" value="Pay">
+    </form>
+
+    <script>
+      var checkout;
+
+      braintree.setup("<%= @client_token %>", "custom", {
+        onReady: function (integration) {
+          checkout = integration;
+        },
+        onPaymentMethodReceived: function (payload) {
+          document.querySelector('#payment_method_nonce').value = payload.nonce;
+          
+          document.querySelector('#submit')
+          var form = document.getElementById('credit-card-info');
+          HTMLFormElement.prototype.submit.call(form);
+        },
+        paypal: {
+          singleUse: true,
+          amount: 10.00,
+          currency: 'USD',
+          locale: 'en_us',
+          enableShippingAddress: true,
+          headless: true
+        }
+      });
+
+      document.querySelector('#submit').addEventListener('click', function (event) {
+        event.preventDefault();
+        checkout.paypal.initAuthFlow();
+      }, false);
+    </script>
+  </body>
+</html>
