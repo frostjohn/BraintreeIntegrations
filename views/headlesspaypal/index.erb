@@ -28,11 +28,22 @@
         },
         paypal: {
           singleUse: true,
-          amount: 10.00,
+          amount: '10.00',
           currency: 'USD',
           locale: 'en_us',
-          enableShippingAddress: true,
-          headless: true
+          headless: true,
+          enableShippingAddress: 'true',
+          shippingAddressOverride: {
+            recipientName: 'Scruff McGruff',
+            streetAddress: '1234 Main St.',
+            extendedAddress: 'Unit 1',
+            locality: 'Chicago',
+            countryCodeAlpha2: 'US',
+            postalCode: '60652',
+            region: 'IL',
+            phone: '123.456.7890',
+            editable: false
+          }
         }
       });
 
